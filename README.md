@@ -1,45 +1,45 @@
-# Learning Azure ☁️
+# Learning Azure ☁️🚀
 
 This repository is my hands-on journey of learning the **core services of Microsoft Azure**.
 
-Instead of only studying theory, I am learning by **building projects and experimenting with Azure services**. This helps me understand how these services work in real-world scenarios and gain practical experience.
+Instead of only studying theory 📚, I am learning by **building projects and experimenting with Azure services** 🛠️. This helps me understand how these services work in real-world scenarios and gain practical experience.
 
-## Azure Services I'm Learning
+## ☁️ Azure Services I'm Learning
 
-### Compute
+### 💻 Compute
 - Virtual Machines
 - Function App
 - App Service
 
-### Storage
+### 📦 Storage
 - Blob Storage
 - Azure Files
 
-### Networking
+### 🌐 Networking
 - Virtual Network (VNet)
 - Load Balancer
 - Application Gateway
 - DNS
 - Private Endpoint
 
-### Database
+### 🗄️ Database
 - Azure SQL Database
 - Azure Cosmos DB
 
-### Security
+### 🔐 Security
 - Microsoft Entra ID
 - Key Vault
 - Defender for Cloud
 
-### Monitoring
+### 📊 Monitoring
 - Azure Monitor
 - Application Insights
 
-### Communication
+### 📡 Communication
 - Service Bus
 - Event Grid
 
-### AI
+### 🤖 AI
 - Azure AI Foundry
 - Azure AI Search
 
@@ -47,4 +47,4 @@ Instead of only studying theory, I am learning by **building projects and experi
 
 Learn Azure through **practical, project-oriented learning** and build a strong understanding of how its core services are used together.
 
-> Learn → Build → Break → Fix → Repeat 🚀
+> **Learn → Build → Break → Fix → Repeat 🔄🚀**
