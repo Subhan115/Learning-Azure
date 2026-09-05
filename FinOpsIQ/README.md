@@ -35,80 +35,31 @@ Azure Cost Management → Blob Storage (daily CSV export)
 ```
 
 **Core Services**: Azure Function App, Blob Storage, AI Foundry, Key Vault, Logic Apps, Application Insights, Entra ID (Managed Identity).
+## Architecture
 
-```meramid
-flowchart TB
-    subgraph User["👤 User Configuration"]
-        Config[("📝 subscriptions.json<br/>spike %, baseline window")]
-    end
+```mermaid
+flowchart LR
+    A[Azure Cost Management] -->|Daily cost export| B[Azure Blob Storage]
 
-    subgraph Azure["☁️ Azure Cloud"]
-        subgraph CostMgmt["💰 Azure Cost Management"]
-            Export[("📥 Daily CSV Export<br/>(24h lag)")]
-        end
+    B --> C[Azure Function App]
+    C --> D{Spike detected?}
 
-        subgraph Storage["🗄️ Blob Storage"]
-            CostCSV[("📄 cost_exports/YYYY-MM-DD.csv")]
-            Anomalies[("📄 anomalies/YYYY-MM-DD.json")]
-            Scorecards[("📄 scorecards/weekly_YYYY-MM-DD.md")]
-            AppConfig[("⚙️ config/subscriptions.json")]
-        end
+    D -->|No| E[Store processing result]
+    D -->|Yes| F[Azure AI Foundry]
 
-        subgraph Compute["⚡ Azure Function App<br/>(Python)"]
-            Trigger[("⏰ Daily Timer<br/>6:00 AM PKT")]
-            SpikeDetect["🔍 Spike Detection<br/>(baseline vs actual)"]
-            AIIntegration["🤖 AI Foundry Call<br/>(generate explanation)"]
-            WeeklyJob["📊 Weekly Scorecard<br/>(aggregate top spikes)"]
-        end
+    F --> G[Plain-language explanation]
+    G --> H[Logic Apps]
 
-        subgraph AI["🧠 Azure AI Foundry"]
-            Model[("💬 Cheapest Model<br/>(Phi-3 / GPT-3.5)")]
-        end
+    H --> I[Email or Teams alert]
 
-        subgraph Security["🔐 Security Layer"]
-            KeyVault[("🔑 Key Vault<br/>(AI API keys)")]
-            ManagedID[("🆔 Managed Identity<br/>(Entra ID)")]
-        end
+    C --> J[Weekly scorecard]
+    J --> K[Blob Storage]
+    K --> H
 
-        subgraph Notify["📧 Azure Logic Apps"]
-            Alert[("⚠️ Instant Alert<br/>(email/Teams)")]
-            WeeklyReport[("📬 Weekly Scorecard<br/>(managers)")]
-        end
-
-        subgraph Monitor["📈 Application Insights"]
-            Logs[("📋 Execution Logs")]
-            Metrics[("📊 Custom Metrics")]
-        end
-    end
-
-    Config --> AppConfig
-    Export --> CostCSV
-    CostCSV --> SpikeDetect
-    AppConfig --> SpikeDetect
-    SpikeDetect --> AIIntegration
-    AIIntegration --> Model
-    Model --> AIIntegration
-    KeyVault -.-> AIIntegration
-    ManagedID -.-> Storage
-    ManagedID -.-> KeyVault
-    ManagedID -.-> Model
-    AIIntegration --> Anomalies
-    SpikeDetect --> Alert
-    WeeklyJob --> Scorecards
-    Scorecards --> WeeklyReport
-    Compute --> Logs
-    Compute --> Metrics
-
-    style User fill:#e1f5ff
-    style Azure fill:#f0f0f0
-    style CostMgmt fill:#fff4e6
-    style Storage fill:#e8f5e9
-    style Compute fill:#fff3e0
-    style AI fill:#f3e5f5
-    style Security fill:#ffebee
-    style Notify fill:#e3f2fd
-    style Monitor fill:#f5f5f5
-  ```  
+    L[Managed Identity] -.-> C
+    M[Key Vault] -.-> C
+    N[Application Insights] -.-> C
+```
 ______________________________________________________________________
 
 ## 📊 How It Works
