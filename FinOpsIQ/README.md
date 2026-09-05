@@ -36,7 +36,7 @@ Azure Cost Management → Blob Storage (daily CSV export)
 
 **Core Services**: Azure Function App, Blob Storage, AI Foundry, Key Vault, Logic Apps, Application Insights, Entra ID (Managed Identity).
 
-
+```meramid
 flowchart TB
     subgraph User["👤 User Configuration"]
         Config[("📝 subscriptions.json<br/>spike %, baseline window")]
@@ -108,7 +108,7 @@ flowchart TB
     style Security fill:#ffebee
     style Notify fill:#e3f2fd
     style Monitor fill:#f5f5f5
-    
+  ```  
 ______________________________________________________________________
 
 ## 📊 How It Works
